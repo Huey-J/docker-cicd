@@ -13,6 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set Yaml
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: './src/main/resources/application.yml'
+        env:
+          data.name: 'substitution test'
+
       - name: Setup Java JDK
         uses: actions/setup-java@v1
         with:
