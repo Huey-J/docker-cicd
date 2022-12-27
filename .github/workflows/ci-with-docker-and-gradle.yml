@@ -69,3 +69,6 @@ jobs:
             touch hello.txt
             echo "docker pull ${{ secrets.DOCKERHUB_REPO }} || ${{ steps.meta.outputs.tags }} || ${{ steps.date.outputs.date }}" > hello.txt
             docker pull ${{ steps.meta.outputs.tags }}-${{ steps.date.outputs.date }}
+            docker stop server 2> /dev/null || echo "server container doesn't exist"
+            docker rm server 2> /dev/null || echo "server container doesn't exist"
+            docker run --restart always -d -p 80:8080 --name server ${{ steps.meta.outputs.tags }}-${{ steps.date.outputs.date }}
