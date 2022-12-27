@@ -67,4 +67,5 @@ jobs:
           # 도커 작업
           script: |
             touch hello.txt
+            echo "docker pull ${{ secrets.DOCKERHUB_REPO }}:${{ steps.meta.outputs.tags }}-${{ steps.date.outputs.date }}" > hello.txt
             docker pull ${{ secrets.DOCKERHUB_REPO }}:${{ steps.meta.outputs.tags }}-${{ steps.date.outputs.date }}
