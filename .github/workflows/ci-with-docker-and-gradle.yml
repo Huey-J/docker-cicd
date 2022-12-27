@@ -66,5 +66,5 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }} # pem 키
           # 도커 작업
           script: |
-            touch hello-${{ secrets.DOCKERHUB_REPO }}-${{ steps.meta.outputs.tags }}-${{ steps.date.outputs.date }}.txt
+            touch hello.txt
             docker pull ${{ secrets.DOCKERHUB_REPO }}:${{ steps.meta.outputs.tags }}-${{ steps.date.outputs.date }}
