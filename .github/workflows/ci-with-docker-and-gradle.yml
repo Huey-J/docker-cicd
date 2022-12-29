@@ -4,9 +4,6 @@ on:
   push:
     branches: [ "main" ]
 
-env:
-  ACTIVE_PROFILE: "prd"
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -55,7 +52,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: $ACTIVE_PROFILE-${{ steps.date.outputs.date }}
+          tags: prd-${{ steps.date.outputs.date }}
           labels: ${{ steps.meta.outputs.labels }}
     
       # docker pull in server
@@ -67,7 +64,7 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }} # pem 키
           script: |
             touch hello.txt
-            echo "docker pull $ACTIVE_PROFILE ||  ${{ secrets.DOCKERHUB_REPO }} || ${{ steps.meta.outputs.tags }} || ${{ steps.date.outputs.date }}" > hello.txt
+            echo "docker pull prd ||  ${{ secrets.DOCKERHUB_REPO }} || ${{ steps.meta.outputs.tags }} || ${{ steps.date.outputs.date }}" > hello.txt
             docker pull ${{ steps.meta.outputs.tags }}-${{ steps.date.outputs.date }}
             docker stop server
             docker rm server
