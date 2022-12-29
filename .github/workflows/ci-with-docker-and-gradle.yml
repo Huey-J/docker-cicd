@@ -3,12 +3,6 @@ name: CI With Docker And Gradle
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-env:
-  ACTIVE_PROFILE: "prd"
-
 
 jobs:
   build:
@@ -58,7 +52,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}-${{ steps.date.outputs.date }}-$ACTIVE_PROFILE
+          tags: ${{ steps.meta.outputs.tags }}-${{ steps.date.outputs.date }}-prd
           labels: ${{ steps.meta.outputs.labels }}
     
       # docker pull in server
@@ -70,8 +64,8 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }} # pem 키
           script: |
             touch hello.txt
-            echo "docker pull $ACTIVE_PROFILE ${{ secrets.DOCKERHUB_REPO }} || ${{ steps.meta.outputs.tags }} || ${{ steps.date.outputs.date }}" > hello.txt
-            docker pull ${{ steps.meta.outputs.tags }}-${{ steps.date.outputs.date }}-$ACTIVE_PROFILE
+            echo "docker pull prd ${{ secrets.DOCKERHUB_REPO }} || ${{ steps.meta.outputs.tags }} || ${{ steps.date.outputs.date }}" > hello.txt
+            docker pull ${{ steps.meta.outputs.tags }}-${{ steps.date.outputs.date }}-prd
             docker stop server
             docker rm server
             docker run --restart always -d -p 80:8080 --name server ${{ steps.meta.outputs.tags }}-${{ steps.date.outputs.date }}
