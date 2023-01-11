@@ -14,7 +14,7 @@ public class HelloController {
 
   @GetMapping("")
   public String helloRealUser() {
-    return "develop hello : " + dataName;
+    return "hello : " + dataName;
   }
 
 }

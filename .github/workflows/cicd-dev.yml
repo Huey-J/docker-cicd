@@ -17,7 +17,7 @@ jobs:
         with:
           files: './src/main/resources/application.yml'
         env:
-          data.name: 'substitution test'
+          data.name: 'substitution test by main'
 
       - name: Setup Java JDK
         uses: actions/setup-java@v1
