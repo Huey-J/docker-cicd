@@ -1,6 +1,10 @@
 server:
   port: 8080
 
-
 data:
   name: need-init
+
+spring:
+  redis:
+    host: redis   # docker container name
+    port: 6379
